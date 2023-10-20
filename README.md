@@ -43,13 +43,17 @@ For example:
 First file Output
 
 Longest Compounded Word: ratcatdogcat
+
 Second Longest Compounded Word: catsdogcats
+
 Time taken to process the input file: 0 milliseconds
 
 Second file Output
 
 Longest Compounded Word: ethylenediaminetetraacetates
-Second Longest Compounded Word: ethylenediaminetetraacetate
+
+Second Longest Compounded Word: 
+
 Time taken to process the input file: 188 milliseconds
 
 ## Authors
