@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
-#include <cstring> // For the strerror function
+#include <cstring>
 #include <unistd.h> 
 using namespace std;
-
 class TrieNode
 {
 public:
@@ -92,14 +91,21 @@ bool sortDecreasing(const string &a, const string &b)
     return a.length() > b.length();
 }
 
-bool isCompoundWord(const string &word, Trie *t)
+bool isCompoundWord(const string &word, Trie *t, unordered_map<string, bool> &cache)
 {
     if (word.empty())
     {
         return false;
     }
 
+    if (cache.find(word) != cache.end())
+    {
+        return cache[word];
+    }
+
     int n = word.size();
+    bool isCompound = false;
+
     for (int i = 1; i <= n; i++)
     {
         string prefix = word.substr(0, i);
@@ -107,46 +113,26 @@ bool isCompoundWord(const string &word, Trie *t)
 
         if (t->searchWord(prefix))
         {
-            if (t->searchWord(suffix) || isCompoundWord(suffix, t))
+            if (t->searchWord(suffix) || isCompoundWord(suffix, t, cache))
             {
-                return true;
+                isCompound = true;
+                break;
             }
         }
     }
 
-    return false;
+    cache[word] = isCompound;
+    return isCompound;
 }
-// Function to convert path separators to match the platform
-void convertPathToPlatformStyle(std::string& path) {
-    for (char& character : path) {
-        if (character == '/' || character == '\\') {
-            character = '/'; // Use forward slash for compatibility
-        }
-    }
-}
+
+
 int main()
 {
     auto start = chrono::high_resolution_clock::now();
     Trie *t = new Trie();
-    char cwd[1024]; // Create a character array to store the current working directory
-    string fullFilePath,filename;
-    if (getcwd(cwd, sizeof(cwd)) != nullptr) {
-        filename = "Input_02.txt"; // Your file name
-
-        // Combine cwd and filename to create the full file path
-         fullFilePath = std::string(cwd) + "/" + filename;
-
-        // Convert the file path to match the platform style
-        convertPathToPlatformStyle(fullFilePath);
-
-        // std::cout << "Full File Path: " << fullFilePath << std::endl;
-    }
-    // } else {
-    //     std::cerr << "Error getting current working directory: " << std::strerror(errno) << std::endl;
-    // }
-
-   // cout<<fullFilePath<<endl;
-    ifstream file(fullFilePath);
+    string filename = "Input_02.txt";
+    
+    ifstream file(filename);
 
     if (!file)
     {
@@ -165,6 +151,7 @@ int main()
     
     // Sort the word list according to the length of the word in descending order
     sort(wordList.begin(), wordList.end(), sortDecreasing);
+    unordered_map<string, bool> cache; // Cache for storing compound word results
     for (const string &word : wordList)
     {
         t->insertWord(word);
@@ -174,27 +161,28 @@ int main()
     string secondLongestCompoundWord = "";
 
     for (const string &word : wordList)
+{
+    if (isCompoundWord(word, t, cache))
     {
-        if (isCompoundWord(word, t))
+        if (word.length() > longestCompoundWord.length())
         {
-            // compoundedWords.push_back(word);
-            if (longestCompoundWord.empty())
-            {
-                longestCompoundWord = word;
-            }
-            else if (word.length() == longestCompoundWord.length())
-            {
-                // If two words have the same length, the second one becomes the second longest
-                secondLongestCompoundWord = word;
-            }
-            else
-            {
-                // Update the second longest only if the length is different from the longest
-                secondLongestCompoundWord = word;
-                break; // No need to continue
-            }
+            secondLongestCompoundWord = longestCompoundWord;
+            longestCompoundWord = word;
+        }
+        else if (word.length() == longestCompoundWord.length() && word != longestCompoundWord)
+        {
+            secondLongestCompoundWord = word;
+            //  break;   // if need shortest compound word use sortAscending 
+        }
+        else if (word.length() > secondLongestCompoundWord.length() && word != longestCompoundWord)
+        {
+            secondLongestCompoundWord = word;
+          break ; // if longest and use sortDecreasing 
+            
+            
         }
     }
+}
 
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
