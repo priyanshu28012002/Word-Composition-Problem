@@ -11,7 +11,7 @@ This is a program designed to find the longest and second-longest compound words
 
 - Dynamic Programming with Caching: A caching mechanism is used to store the results of previous compound word checks, which avoids redundant computations and improves overall performance.
 
-- We use isCompoundWord function to breakdown the word in to prefix and suffix. This function also uses trie to search for Compound words from a list.
+- We use isCompoundWord function to breakdown the word into prefix and suffix. This function also uses trie to search for Compound words from a list.
 ## Approach
 1. Read Input File: The program reads a list of words from an input file and stores them in a vector called wordList.
 
@@ -31,7 +31,7 @@ To run Code, run the following command on terminal or cmd
 1. Compile the Code: Open a terminal and navigate to the directory containing the source code. Compile the code using a C++ compiler. 
 For example:
 ```bash
- gcc compound_word_finder.cpp or g++ compound_word_finder.cpp
+ gcc compound_word_finder.cpp
 ```
 2. Run the compiled program: To compile a C++ program, use a command 
 ```bash
