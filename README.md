@@ -28,8 +28,8 @@ This is a program designed to find the longest and second-longest compound words
 
 To run Code, run the following command on terminal or cmd 
 
-1. Compile the Code: Open a terminal and navigate to the directory containing the source code. Compile the code using a C++ compiler. 
-For example:
+1. Compile the Code: Open a terminal and navigate to the directory containing the source code and compile the code. 
+
 ```bash
  gcc compound_word_finder.cpp
 ```
