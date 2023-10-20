@@ -37,7 +37,20 @@ For example:
 ```bash
 ./compound_word_finder
 ```
+## Output of sample files
 
+
+First file Output
+
+Longest Compounded Word: ratcatdogcat
+Second Longest Compounded Word: catsdogcats
+Time taken to process the input file: 0 milliseconds
+
+Second file Output
+
+Longest Compounded Word: ethylenediaminetetraacetates
+Second Longest Compounded Word: ethylenediaminetetraacetate
+Time taken to process the input file: 188 milliseconds
 
 ## Authors
 
